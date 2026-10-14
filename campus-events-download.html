@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus Events — Download for Android</title>
+<meta name="description" content="Plan a campus event with your team: registrations, QR tickets, check-in, tasks and budget. Download the latest Android app.">
+<meta name="theme-color" content="#3340ff">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%235948F5'/%3E%3Cpath fill='%23F6F7FB' transform='translate(136.4 105.2) scale(1.3)' d='M34 0H160A24 24 0 0 1 184 24A24 24 0 0 1 160 48H62A14 14 0 0 0 48 62V78A14 14 0 0 0 62 92H160A24 24 0 0 1 184 116A24 24 0 0 1 160 140H62A14 14 0 0 0 48 154V170A14 14 0 0 0 62 184H160A24 24 0 0 1 184 208A24 24 0 0 1 160 232H34A34 34 0 0 1 0 198V34A34 34 0 0 1 34 0Z'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/real-debabrata/cem/main/brand/logo-1024.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ultra:#3340ff; --ultra-deep:#2230d6; --ink:#0e1038; --mint:#8cf5d2; --cloud:#f1f2ff;
+  --line:#d7daff; --coral:#ff6f5e; --muted:#5b5f8f;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);font-size:17px;line-height:1.6;color:var(--ink);background:var(--cloud);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ultra);outline-offset:3px;border-radius:6px}
+.hero :focus-visible,footer :focus-visible{outline-color:var(--mint)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative}
+
+/* ───────── Hero ───────── */
+.hero{background:var(--ultra);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.16) 1.2px,transparent 1.4px);background-size:28px 28px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0%,transparent 85%)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand{display:flex;align-items:center;gap:12px;font:800 20px var(--display);text-decoration:none}
+.brand svg{width:38px;height:38px;flex:none;display:block;border-radius:23%;box-shadow:0 0 0 2px rgba(255,255,255,.3)}
+.nav-links{display:flex;gap:22px;font-weight:500;font-size:15px}
+.nav-links a{text-decoration:none;opacity:.85}
+.nav-links a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:36px 0 96px}
+.eyebrow{display:inline-block;font-weight:600;font-size:14px;padding:4px 14px;border-radius:99px;background:rgba(255,255,255,.14);color:#e6e8ff;margin-bottom:18px}
+h1{font:800 clamp(40px,6vw,72px)/.98 var(--display);letter-spacing:-.03em;margin:0 0 20px}
+.lead{font-size:clamp(18px,2.1vw,21px);max-width:30em;margin:0 0 32px;color:#dfe2ff}
+
+.odometer{display:inline-flex;align-items:flex-end;font:800 clamp(40px,6vw,64px)/1 var(--display);height:1em;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.odometer .v{font-size:.42em;margin-right:.12em;color:var(--mint);line-height:1.4}
+.odometer .digit{display:inline-block;height:1em;overflow:hidden}
+.odometer .strip{display:flex;flex-direction:column;transform:translateY(0);transition:transform 1.7s cubic-bezier(.16,.84,.24,1)}
+.odometer .strip span{display:block;height:1em;line-height:1}
+.odometer .static{display:inline-block}
+.version-meta{margin:10px 0 24px;color:#cfd3ff;font-size:15px;min-height:1.6em}
+.version-meta b{color:#fff;font-weight:600}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn-download{display:inline-flex;align-items:center;gap:14px;background:var(--mint);color:var(--ink);padding:16px 28px 16px 22px;border-radius:18px;
+  font:800 20px var(--display);text-decoration:none;box-shadow:0 6px 0 #4fc9a3;transition:transform .15s ease,box-shadow .15s ease}
+.btn-download:hover{transform:translateY(-2px);box-shadow:0 8px 0 #4fc9a3}
+.btn-download:active{transform:translateY(5px);box-shadow:0 1px 0 #4fc9a3}
+.btn-download svg{width:26px;height:26px;flex:none}
+.btn-download small{display:block;font:500 13px var(--body);opacity:.75;margin-top:1px}
+.btn-download[aria-disabled="true"]{pointer-events:none;opacity:.55}
+.btn-ghost{padding:14px 22px;border-radius:16px;border:2px solid rgba(255,255,255,.4);text-decoration:none;font-weight:600;transition:background .15s,border-color .15s}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.install-note{margin:22px 0 0;font-size:14px;color:#cfd3ff;max-width:46ch}
+
+/* phone with the scan loop */
+.stage{display:grid;place-items:center;position:relative;min-height:540px}
+.ring{position:absolute;width:340px;height:340px;border-radius:50%;border:2px solid rgba(255,255,255,.28);animation:pulse 5s ease-out infinite}
+.ring:nth-child(2){animation-delay:2.5s}
+@keyframes pulse{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.phone{position:relative;width:256px;height:520px;background:var(--ink);border-radius:42px;padding:10px;
+  box-shadow:0 40px 70px -20px rgba(8,10,70,.6);transform:rotate(-6deg);animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-14px)}}
+.screen{width:100%;height:100%;background:#f7f8ff;color:var(--ink);border-radius:33px;overflow:hidden;position:relative;padding:16px 14px}
+.notch{width:70px;height:20px;background:var(--ink);border-radius:12px;margin:-6px auto 12px}
+.bar{font:800 14px var(--display);display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;color:var(--ultra)}
+.bar i{font:500 12px var(--body);font-style:normal;color:var(--muted)}
+.ticket{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
+.qrbox{position:relative;margin:0 auto 10px;width:128px;height:128px;overflow:hidden;border-radius:6px}
+.qr{width:100%;height:100%;display:block;animation:dim 7s infinite}
+.scan{position:absolute;left:-6px;right:-6px;top:0;height:3px;background:var(--ultra);border-radius:3px;box-shadow:0 0 14px 3px rgba(51,64,255,.7);opacity:0;animation:scan 7s infinite}
+.ok{position:absolute;inset:0;display:grid;place-items:center;opacity:0;animation:ok 7s infinite}
+.ok span{width:66px;height:66px;border-radius:50%;background:var(--mint);display:grid;place-items:center;box-shadow:0 8px 24px -6px rgba(53,201,165,.8)}
+.ok svg{width:36px;height:36px}
+.who{font:800 16px var(--display)} .sub{font-size:12.5px;color:var(--muted)}
+.state-txt{margin-top:8px;font:600 13px var(--body);position:relative;height:1.4em}
+.state-txt span{position:absolute;inset:0}
+.state-txt .a{color:var(--muted);animation:txtA 7s infinite}
+.state-txt .b{color:#087A62;opacity:0;animation:txtB 7s infinite}
+.task{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:13px;color:#2a2d5c}
+.task u{width:16px;height:16px;border-radius:5px;background:var(--ultra);flex:none;text-decoration:none}
+.task u.o{background:none;border:2px solid #c3c8f5}
+@keyframes scan{0%,12%{top:0;opacity:0}15%{opacity:1}48%{top:calc(100% - 3px);opacity:1}52%,100%{top:calc(100% - 3px);opacity:0}}
+@keyframes ok{0%,54%{opacity:0;transform:scale(.5)}60%{opacity:1;transform:scale(1.08)}64%,90%{opacity:1;transform:scale(1)}96%,100%{opacity:0;transform:scale(1)}}
+@keyframes dim{0%,54%{opacity:1}60%,90%{opacity:.12}96%,100%{opacity:1}}
+@keyframes txtA{0%,54%{opacity:1}56%,94%{opacity:0}96%,100%{opacity:1}}
+@keyframes txtB{0%,54%{opacity:0}58%,90%{opacity:1}94%,100%{opacity:0}}
+.toast{position:absolute;left:12px;right:12px;bottom:14px;background:var(--ink);color:#fff;border-radius:16px;padding:11px 14px;font-size:13px;line-height:1.35;
+  display:flex;gap:10px;align-items:center;transform:translateY(140%);transition:transform .6s cubic-bezier(.2,1.2,.3,1)}
+.toast.show{transform:none}
+.toast b{color:var(--mint);font-weight:600}
+.toast .dot{width:10px;height:10px;border-radius:50%;background:var(--mint);flex:none}
+
+/* ───────── Sections ───────── */
+section{padding:80px 0}
+h2{font:800 clamp(30px,4.5vw,46px)/1.05 var(--display);letter-spacing:-.025em;margin:0 0 36px}
+.features-sec{background:var(--cloud)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 40px}
+.features h3{font:800 22px var(--display);margin:0 0 8px}
+.features p{margin:0;color:var(--muted)}
+.features div:nth-child(3n+1) h3{color:var(--ultra)}
+.features div:nth-child(3n+2) h3{color:#0b8a6a}
+.features div:nth-child(3n) h3{color:#e0503f}
+
+.install-sec{background:#fff;border-top:1px solid var(--line)}
+.steps{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:0;margin:0}
+.steps li{counter-increment:s;color:var(--muted)}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ultra);color:#fff;font:800 18px var(--display);margin-bottom:14px;box-shadow:0 4px 0 var(--ultra-deep)}
+.steps b{display:block;color:var(--ink);font:800 20px var(--display);margin-bottom:4px}
+
+.new-sec{background:var(--cloud);border-top:1px solid var(--line)}
+.notes{color:#2a2d5c}
+.notes h4{font:800 17px var(--display);margin:18px 0 6px}
+.notes h4:first-child{margin-top:0}
+.notes ul{margin:6px 0 12px;padding-left:22px}
+.notes li{margin:4px 0}
+.notes p{margin:8px 0}
+.notes code{background:#e4e6ff;padding:1px 6px;border-radius:6px;font-size:.9em}
+.notes a{color:var(--ultra-deep)}
+.notes .empty,.empty{color:var(--muted);font-style:italic}
+.notes-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 30px;max-width:760px}
+
+.releases{background:#fff;border-top:1px solid var(--line)}
+.releases .sub{color:var(--muted);margin:-18px 0 40px}
+.timeline{list-style:none;margin:0;padding:0 0 0 28px;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.rel{position:relative;padding-bottom:24px}
+.rel::before{content:"";position:absolute;left:-28px;top:10px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--ultra)}
+.rel.latest::before{background:var(--mint);border-color:var(--ink)}
+.rel details{background:var(--cloud);border-radius:18px;border:1px solid var(--line)}
+.rel summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.rel summary::-webkit-details-marker{display:none}
+.rel summary::after{content:"";margin-left:auto;width:10px;height:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);transition:transform .25s}
+.rel details[open] summary::after{transform:rotate(-135deg)}
+.rel .tag{font:800 22px var(--display)}
+.rel .date{color:var(--muted);font-size:15px}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--ink);color:var(--mint)}
+.badge.pre{background:var(--coral);color:#fff}
+.rel .body{padding:0 20px 20px}
+.assets{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.asset{display:inline-flex;flex-direction:column;text-decoration:none;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:15px;transition:background .15s,transform .15s}
+.asset:hover{background:var(--ultra);transform:translateY(-2px)}
+.asset small{font-weight:400;opacity:.7;font-size:12.5px}
+.state{padding:20px;border-radius:16px;background:var(--cloud);border:1px dashed var(--line);color:var(--muted)}
+.state a{color:var(--ultra-deep);font-weight:600}
+.skeleton{height:64px;border-radius:18px;margin-bottom:18px;background:linear-gradient(100deg,var(--cloud) 30%,#fff 50%,var(--cloud) 70%);background-size:300% 100%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{to{background-position:-300% 0}}
+
+footer{background:var(--ink);color:#b9bdf2;padding:32px 0;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px}
+footer a{color:var(--mint)}
+footer .links{display:flex;gap:22px;flex-wrap:wrap}
+
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;padding-bottom:72px}
+  .stage{min-height:500px;order:2}
+  .phone{transform:rotate(-4deg) scale(.92)}
+  .features,.steps{grid-template-columns:1fr;gap:28px}
+  .nav-links a:not(:last-child){display:none}
+  section{padding:60px 0}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .ok{opacity:1}.qr{opacity:.12}.state-txt .a{opacity:0}.state-txt .b{opacity:1}.toast{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Campus Events home">
+        <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="120" fill="#5948F5"/><path fill="#F6F7FB" transform="translate(136.4 105.2) scale(1.3)" d="M34 0H160A24 24 0 0 1 184 24A24 24 0 0 1 160 48H62A14 14 0 0 0 48 62V78A14 14 0 0 0 62 92H160A24 24 0 0 1 184 116A24 24 0 0 1 160 140H62A14 14 0 0 0 48 154V170A14 14 0 0 0 62 184H160A24 24 0 0 1 184 208A24 24 0 0 1 160 232H34A34 34 0 0 1 0 198V34A34 34 0 0 1 34 0Z"/></svg>
+        Campus Events
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#whats-new">What's new</a>
+        <a href="#versions">Versions</a>
+        <a href="https://cem.deba.indevs.in" rel="noopener">Open web app</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Campus Events for Android</span>
+        <h1>Run your campus event from one phone.</h1>
+        <p class="lead">Registrations, QR tickets, check-in, tasks and budget for your whole team, in one Android app.</p>
+
+        <div class="odometer" id="odometer" aria-live="polite" aria-label="Loading latest version"><span class="static">…</span></div>
+        <p class="version-meta" id="meta" aria-live="polite">Checking for the latest version…</p>
+
+        <div class="cta-row">
+          <a class="btn-download" id="dl" href="#" aria-disabled="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+            <span><span id="dl-text">Download APK</span><small id="dl-sub">Looking up latest build…</small></span>
+          </a>
+          <a class="btn-ghost" href="https://cem.deba.indevs.in" rel="noopener">Open web app</a>
+        </div>
+        <p class="install-note">After downloading, open the file and allow "Install unknown apps" for your browser if Android asks.</p>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="ring"></div><div class="ring"></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="bar">Tech Fest 2026 <i>Gate 1</i></div>
+            <div class="ticket">
+              <div class="qrbox">
+                <svg class="qr" id="qr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg>
+                <div class="scan"></div>
+                <div class="ok"><span><svg viewBox="0 0 24 24" fill="none" stroke="#0e1038" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+              </div>
+              <div class="who">Aarav Sharma</div>
+              <div class="sub">Ticket TF-0412</div>
+              <div class="state-txt"><span class="a">Scanning…</span><span class="b">Checked in</span></div>
+            </div>
+            <div class="task"><u></u>Print banners</div>
+            <div class="task"><u></u>Book the sound system</div>
+            <div class="task"><u class="o"></u>Confirm sponsors</div>
+            <div class="toast" id="toast"><span class="dot"></span><span id="toast-text">Checking for updates…</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="features-sec" id="features"><div class="wrap">
+    <h2>Everything an event team juggles</h2>
+    <div class="features">
+      <div><h3>Registration</h3><p>Share a link and a QR code. People sign up without an account, you approve them, and a waitlist fills empty seats.</p></div>
+      <div><h3>QR tickets and check-in</h3><p>Scan tickets at the gate, even offline. A used ticket shows when and by whom.</p></div>
+      <div><h3>Tasks and teams</h3><p>Give work to people, set due dates, and see everything assigned to you across events.</p></div>
+      <div><h3>Roles</h3><p>Organizers, managers and members. Create custom roles and choose what each may do.</p></div>
+      <div><h3>Money</h3><p>Cash and UPI fees, payment links, bills, vendors, sponsors and a break-even number.</p></div>
+      <div><h3>Team chat</h3><p>A chat inside every event, so the plan stays next to the people running it.</p></div>
+    </div>
+  </div></section>
+
+  <section class="install-sec" id="install"><div class="wrap">
+    <h2>Install in a minute</h2>
+    <ol class="steps">
+      <li><b>Download the APK</b>Tap the download button at the top of this page.</li>
+      <li><b>Open the file</b>If Android asks, allow installs from your browser, then tap Install.</li>
+      <li><b>Sign in</b>Use Google or an email, then create or join an event with a 6-letter code.</li>
+    </ol>
+  </div></section>
+
+  <section class="new-sec" id="whats-new"><div class="wrap">
+    <h2 id="wn-title">What's new</h2>
+    <div class="notes-card"><div class="notes" id="notes"><p class="empty">Loading release notes…</p></div></div>
+  </div></section>
+
+  <section class="releases" id="versions"><div class="wrap">
+    <h2>All versions</h2>
+    <p class="sub">New releases show up here on their own. Updates install over your current app.</p>
+    <div id="hist"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+  </div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© <span id="yr"></span> Campus Events</span>
+  <span class="links"><a href="https://cem.deba.indevs.in" rel="noopener">Web app</a><a id="gh" href="#" rel="noopener">GitHub</a><a id="all" href="#" rel="noopener">All releases</a></span>
+</div></footer>
+
+<script>
+/* ---------- CHANGE ONLY THESE TWO LINES IF YOU EVER RENAME THE REPO ---------- */
+const OWNER = "real-debabrata";
+const REPO  = "cem";
+/* ----------------------------------------------------------------------------- */
+
+const API  = `https://api.github.com/repos/${OWNER}/${REPO}/releases?per_page=20`;
+const PAGE = `https://github.com/${OWNER}/${REPO}/releases`;
+const $ = id => document.getElementById(id);
+$("yr").textContent = new Date().getFullYear();
+$("gh").href = `https://github.com/${OWNER}/${REPO}`;
+$("all").href = PAGE;
+
+/* decorative QR in the phone */
+(function(){
+  const n = 25, svg = $("qr"); let s = 7, out = `<rect width="${n}" height="${n}" fill="#fff"/>`;
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const finder = (x, y) => out += `<rect x="${x}" y="${y}" width="7" height="7" fill="#0e1038"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3" fill="#0e1038"/>`;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
+    if (!inF && rnd() > .52) out += `<rect x="${x}" y="${y}" width="1" height="1" fill="#0e1038"/>`;
+  }
+  finder(0, 0); finder(n - 7, 0); finder(0, n - 7);
+  svg.innerHTML = out;
+})();
+
+/* helpers */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const mb = b => (b / 1048576).toFixed(1) + " MB";
+const day = d => new Date(d).toLocaleDateString(undefined, {year:"numeric", month:"short", day:"numeric"});
+const apkAll = r => (r.assets || []).filter(a => /\.apk$/i.test(a.name));
+const apkOf = r => {
+  const apks = apkAll(r);
+  return apks.find(a => /universal/i.test(a.name)) || apks.find(a => !/(debug|arm|x86)/i.test(a.name)) || apks[0];
+};
+
+/* tiny, safe markdown for release notes (everything is escaped first) */
+function md(src) {
+  const inline = t => esc(t)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|\s)(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+  let html = "", list = false;
+  for (const raw of String(src || "").split(/\r?\n/)) {
+    const l = raw.trim();
+    const li = l.match(/^[-*+]\s+(.*)/), h = l.match(/^#{1,6}\s+(.*)/);
+    if (li) { if (!list) { html += "<ul>"; list = true; } html += `<li>${inline(li[1])}</li>`; continue; }
+    if (list) { html += "</ul>"; list = false; }
+    if (h) html += `<h4>${inline(h[1])}</h4>`;
+    else if (l) html += `<p>${inline(l)}</p>`;
+  }
+  return (list ? html + "</ul>" : html) || '<p class="empty">No release notes were written for this version.</p>';
+}
+
+/* version odometer: digits roll up to the version number */
+function rollVersion(version) {
+  const el = $("odometer");
+  const clean = String(version).replace(/^v/i, "");
+  el.setAttribute("aria-label", "Version " + clean);
+  el.innerHTML = '<span class="v">v</span>';
+  const strips = [];
+  [...clean].forEach((ch, i) => {
+    if (/\d/.test(ch)) {
+      const d = document.createElement("span"); d.className = "digit";
+      const s = document.createElement("span"); s.className = "strip";
+      s.innerHTML = Array.from({length: 20}, (_, n) => `<span>${n % 10}</span>`).join("");
+      s.style.transitionDelay = (i * 90) + "ms";
+      d.appendChild(s); el.appendChild(d);
+      strips.push([s, parseInt(ch, 10)]);
+    } else {
+      const t = document.createElement("span"); t.className = "static"; t.textContent = ch; el.appendChild(t);
+    }
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    strips.forEach(([s, n]) => { s.style.transform = `translateY(-${n + 10}em)`; });
+  }));
+}
+
+/* fetch releases (cached 10 min so the free GitHub limit of 60 requests/hour per visitor is never a problem) */
+async function getReleases() {
+  const KEY = "cem_releases_v2";
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (cached && Array.isArray(cached.data) && Date.now() - cached.t < 600000) return cached.data;
+  try {
+    const res = await fetch(API, {headers: {Accept: "application/vnd.github+json"}});
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("Unexpected response");
+    try { localStorage.setItem(KEY, JSON.stringify({t: Date.now(), data})); } catch (e) {}
+    return data;
+  } catch (e) {
+    if (cached && Array.isArray(cached.data)) return cached.data;   /* GitHub busy: show the last known list */
+    throw e;
+  }
+}
+
+function showToast(html) { $("toast-text").innerHTML = html; $("toast").classList.add("show"); }
+
+function fallback() {
+  const dl = $("dl");
+  dl.href = PAGE + "/latest"; dl.removeAttribute("aria-disabled"); dl.removeAttribute("download");
+  $("dl-text").textContent = "Get the app on GitHub";
+  $("dl-sub").textContent = "Open the releases page";
+  $("odometer").innerHTML = '<span class="static">—</span>'; $("odometer").setAttribute("aria-label", "Version unavailable");
+  $("meta").textContent = "Couldn't read the latest version just now. The button opens the releases page.";
+  $("notes").innerHTML = '<p class="empty">Release notes are on GitHub right now.</p>';
+  $("hist").innerHTML = `<div class="state"><a href="${PAGE}" rel="noopener">See all releases on GitHub</a></div>`;
+  showToast("Update check failed");
+}
+
+function render(list) {
+  const latest = list.find(r => !r.prerelease) || list[0], apk = apkOf(latest);
+  const tag = latest.tag_name || latest.name;
+
+  rollVersion(tag);
+  const dl = $("dl");
+  dl.href = apk.browser_download_url;            /* direct file link: the download starts on tap */
+  dl.setAttribute("download", apk.name);
+  dl.removeAttribute("aria-disabled");
+  $("dl-text").textContent = "Download for Android";
+  $("dl-sub").textContent = [tag, mb(apk.size)].join(" · ");
+  $("meta").innerHTML = `<b>${esc(tag)}</b> · ${mb(apk.size)} · released ${day(latest.published_at)}`;
+  setTimeout(() => showToast(`Updated to <b>${esc(tag)}</b>`), 1300);
+
+  $("wn-title").textContent = `What's new in ${tag}`;
+  $("notes").innerHTML = md(latest.body);
+
+  $("hist").innerHTML = `<ol class="timeline">` + list.map((r, i) => {
+    const t = r.tag_name || r.name;
+    return `<li class="rel ${r.id === latest.id ? "latest" : ""}">
+      <details ${i === 0 ? "open" : ""}>
+        <summary>
+          <span class="tag">${esc(r.name || t)}</span>
+          ${r.id === latest.id ? '<span class="badge">Latest</span>' : ""}
+          ${r.prerelease ? '<span class="badge pre">Pre-release</span>' : ""}
+          <span class="date">${day(r.published_at)}</span>
+        </summary>
+        <div class="body">
+          <div class="notes">${md(r.body)}</div>
+          <div class="assets">${apkAll(r).map(a => `<a class="asset" href="${esc(a.browser_download_url)}" download="${esc(a.name)}">${esc(a.name)}<small>${mb(a.size)} · ${Number(a.download_count || 0).toLocaleString()} downloads</small></a>`).join("")}</div>
+        </div>
+      </details>
+    </li>`;
+  }).join("") + `</ol>`;
+}
+
+(async function init() {
+  let list;
+  try { list = (await getReleases()).filter(r => !r.draft && apkOf(r)); } catch (e) { return fallback(); }
+  if (!list.length) {
+    $("odometer").innerHTML = '<span class="static">—</span>'; $("odometer").setAttribute("aria-label", "No version yet");
+    $("dl-sub").textContent = "First release coming soon";
+    $("meta").textContent = "No Android build has been published yet.";
+    $("notes").innerHTML = '<p class="empty">Nothing here yet.</p>';
+    $("hist").innerHTML = '<div class="state">No versions yet.</div>';
+    return;
+  }
+  try { render(list); } catch (e) { console.error(e); fallback(); }
+})();
+</script>
+</body>
+</html>
