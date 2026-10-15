@@ -143,6 +143,10 @@ h2{font:800 clamp(30px,4.5vw,46px)/1.05 var(--display);letter-spacing:-.025em;ma
 .rel details[open] summary::after{transform:rotate(-135deg)}
 .rel .tag{font:800 22px var(--display)}
 .rel .date{color:var(--muted);font-size:15px}
+.rel .tagchip{display:inline-flex;align-items:center;gap:6px;font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:3px 10px 3px 8px;border-radius:8px;background:#fff;border:1px solid var(--line);color:var(--ultra-deep)}
+.rel .tagchip svg{width:13px;height:13px;flex:none}
+.rel .tagchip.solo{font:800 22px var(--display);padding:0;border:0;background:none;color:var(--ink);gap:8px}
+.rel .tagchip.solo svg{width:18px;height:18px;color:var(--ultra)}
 .badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--ink);color:var(--mint)}
 .badge.pre{background:var(--coral);color:#fff}
 .rel .body{padding:0 20px 20px}
@@ -397,11 +401,13 @@ function render(list) {
   setTimeout(() => showToast(`Updated to <b>${esc(tag)}</b>`), 1300);
 
   $("hist").innerHTML = `<ol class="timeline">` + list.map((r, i) => {
-    const t = r.tag_name || r.name;
+    const t = r.tag_name || r.name;                       /* tag comes straight from GitHub */
+    const title = r.name && r.name !== t ? r.name : "";     /* skip the title when it would just repeat the tag */
     return `<li class="rel ${r.id === latest.id ? "latest" : ""}">
       <details ${i === 0 ? "open" : ""}>
         <summary>
-          <span class="tag">${esc(r.name || t)}</span>
+          ${title ? `<span class="tag">${esc(title)}</span>` : ""}
+          <span class="tagchip${title ? "" : " solo"}" title="Git tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg><span>${esc(t)}</span></span>
           ${r.id === latest.id ? '<span class="badge">Latest</span>' : ""}
           ${r.prerelease ? '<span class="badge pre">Pre-release</span>' : ""}
           <span class="date">${day(r.published_at)}</span>
